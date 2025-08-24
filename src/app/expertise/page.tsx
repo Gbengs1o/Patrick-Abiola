@@ -4,6 +4,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { RollingImagesSection } from '@/components/sections/rolling-images-section';
+import { ContactSection } from '@/components/sections/contact-section';
+
 
 // We'll create a structured data array for easier mapping on mobile.
 const expertiseData = [
@@ -181,6 +184,8 @@ export default function ExpertisePage() {
             </div>
         </section>
 
+        <RollingImagesSection />
+
         <section id="expertise" ref={portfolioContainerRef}>
           
           {/* ========================================================== */}
@@ -254,6 +259,8 @@ export default function ExpertisePage() {
               </div>
           </div>
         </section>
+
+        <ContactSection />
       </main>
       <Footer />
       {/* ========================================================== */}

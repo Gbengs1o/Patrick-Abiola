@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { CursorGlow } from '@/components/cursor-glow';
+import { ChatPanel } from '@/components/chat-panel';
 
 export const metadata: Metadata = {
   title: 'Patrick Abiola | Portfolio',
@@ -24,6 +25,7 @@ export default function RootLayout({
         <CursorGlow />
         {children}
         <Toaster />
+        <ChatPanel />
       </body>
     </html>
   );

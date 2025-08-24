@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'seagreen-cobra-133672.hostingersite.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 };

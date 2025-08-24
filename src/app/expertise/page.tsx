@@ -6,6 +6,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { RollingImagesSection } from '@/components/sections/rolling-images-section';
 import { ContactSection } from '@/components/sections/contact-section';
+import { StorySection } from '@/components/sections/story-section';
 
 
 // We'll create a structured data array for easier mapping on mobile.
@@ -260,6 +261,7 @@ export default function ExpertisePage() {
           </div>
         </section>
 
+        <StorySection />
         <ContactSection />
       </main>
       <Footer />
@@ -403,3 +405,4 @@ export default function ExpertisePage() {
     </>
   );
 }
+

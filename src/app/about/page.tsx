@@ -1,6 +1,9 @@
+
 'use client';
 
 import { useState } from 'react';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 
 // Using a separate component for the SVG icons keeps the main component cleaner
 const Icon = ({ name }: { name: string }) => {
@@ -12,7 +15,7 @@ const Icon = ({ name }: { name: string }) => {
   return <div className="icon-wrapper">{icons[name]}</div>;
 };
 
-export function AboutSection() {
+export default function AboutPage() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const pillars = [
@@ -35,75 +38,79 @@ export function AboutSection() {
 
   return (
     <>
-      <section id="about" className="about-section">
-        <div className="container">
-          <div className="intro-text">
-            <h2 className="liquid-hover">Professional Profile</h2>
-            <p className="liquid-hover">
-              A dynamic and multi-talented professional bridging the gap between product innovation, human resources, and career development.
-            </p>
-          </div>
-
-          {/* ========================================================== */}
-          {/* ======================= DESKTOP VIEW ======================= */}
-          {/* ========================================================== */}
-          <div className="about-desktop">
-            <div className="pillar-nav">
-              {pillars.map((pillar, index) => (
-                <button 
-                  key={pillar.id} 
-                  className={`pillar-button liquid-hover ${index === activeIndex ? 'active' : ''}`}
-                  onClick={() => setActiveIndex(index)}
-                >
-                  <Icon name={pillar.id} />
-                  <span className="pillar-title">{pillar.title}</span>
-                </button>
-              ))}
+      <Header />
+      <main>
+        <section id="about" className="about-section">
+          <div className="container">
+            <div className="intro-text">
+              <h2 className="liquid-hover">Professional Profile</h2>
+              <p className="liquid-hover">
+                A dynamic and multi-talented professional bridging the gap between product innovation, human resources, and career development.
+              </p>
             </div>
-            <div className="pillar-content">
-              {pillars.map((pillar, index) => (
-                 <p 
-                   key={pillar.id} 
-                   className={`pillar-description liquid-hover ${index === activeIndex ? 'active' : ''}`}
-                 >
-                   {pillar.description}
-                 </p>
-              ))}
-            </div>
-          </div>
 
-          {/* ======================================================== */}
-          {/* ============ NEW & IMPROVED MOBILE SWIPER ================ */}
-          {/* ======================================================== */}
-          <div className="about-mobile">
-            <div className="swiper-container">
-              <div 
-                className="swiper-wrapper" 
-                style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-              >
-                {pillars.map((pillar) => (
-                  <div key={pillar.id} className="mobile-card">
+            {/* ========================================================== */}
+            {/* ======================= DESKTOP VIEW ======================= */}
+            {/* ========================================================== */}
+            <div className="about-desktop">
+              <div className="pillar-nav">
+                {pillars.map((pillar, index) => (
+                  <button
+                    key={pillar.id}
+                    className={`pillar-button liquid-hover ${index === activeIndex ? 'active' : ''}`}
+                    onClick={() => setActiveIndex(index)}
+                  >
                     <Icon name={pillar.id} />
-                    <h3>{pillar.title}</h3>
-                    <p>{pillar.description}</p>
-                  </div>
+                    <span className="pillar-title">{pillar.title}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="pillar-content">
+                {pillars.map((pillar, index) => (
+                   <p
+                     key={pillar.id}
+                     className={`pillar-description liquid-hover ${index === activeIndex ? 'active' : ''}`}
+                   >
+                     {pillar.description}
+                   </p>
                 ))}
               </div>
             </div>
-            <div className="swiper-dots">
-              {pillars.map((_, index) => (
-                <button 
-                  key={index}
-                  className={`dot ${index === activeIndex ? 'active' : ''}`}
-                  onClick={() => setActiveIndex(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
 
-        </div>
-      </section>
+            {/* ======================================================== */}
+            {/* ============ NEW & IMPROVED MOBILE SWIPER ================ */}
+            {/* ======================================================== */}
+            <div className="about-mobile">
+              <div className="swiper-container">
+                <div
+                  className="swiper-wrapper"
+                  style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+                >
+                  {pillars.map((pillar) => (
+                    <div key={pillar.id} className="mobile-card">
+                      <Icon name={pillar.id} />
+                      <h3>{pillar.title}</h3>
+                      <p>{pillar.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="swiper-dots">
+                {pillars.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`dot ${index === activeIndex ? 'active' : ''}`}
+                    onClick={() => setActiveIndex(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </main>
+      <Footer />
       <style jsx>{`
         /* Common styles from your original code are kept for consistency */
         .about-section {

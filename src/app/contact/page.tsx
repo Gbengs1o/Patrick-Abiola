@@ -1,6 +1,9 @@
+
 'use client';
 
-// Icons object remains the same
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
+
 const icons = {
   YouTube: <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2A29 29 0 0 0 23 11.75a29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>,
   TikTok: <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0a5 5 0 0 1 5 5v5.09c0 4.47-2.59 5.86-7 5.86v-3.4c2.44 0 4.22-.61 4.22-2.88V5.38a2.17 2.17 0 0 0-2.17-2.19h-2.52Z"/><path d="M12.53 14.15V24H8.71V1.82h3.82v12.33Z"/></svg>,
@@ -11,7 +14,7 @@ const icons = {
 };
 
 
-export function ContactSection() {
+export default function ContactPage() {
     const socialLinks = [
         { name: 'YouTube', href: '...', area: '1 / 1' },
         { name: 'TikTok', href: '...', area: '1 / 2' },
@@ -24,53 +27,57 @@ export function ContactSection() {
 
   return (
     <>
-      <section id="contact" className="contact-section">
-        <div className="contact-container">
-            <div className="line-h top"></div>
-            <h1 className="liquid-hover">Get In Touch</h1>
+      <Header />
+      <main>
+        <section id="contact" className="contact-section">
+          <div className="contact-container">
+              <div className="line-h top"></div>
+              <h1 className="liquid-hover">Get In Touch</h1>
 
-            <div className="contact-layout">
-                <a href="mailto:checkonpat@gmail.com" className="primary-cta liquid-hover">
-                    <span className="cta-text">Email Me</span>
-                    <div className="spinner-visual">
-                        {/* --- THE FIX IS APPLIED HERE --- */}
-                        <svg viewBox="-10 -10 120 120"> 
-                            <path d="M 0,50 a 50,50 0 1,1 0,1 z" id="circlePath"></path>
-                            <text>
-                                <textPath href="#circlePath">
-                                    AVAILABLE FOR COLLABORATION • AVAILABLE FOR COLLABORATION •
-                                </textPath>
-                            </text>
-                        </svg>
-                    </div>
-                </a>
-                
-                <div className="social-links-container">
-                    {socialLinks.map((link) => (
-                        <a 
-                          key={link.name} 
-                          href={link.href} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="social-link liquid-hover"
-                          style={{ gridArea: link.area }}
-                          aria-label={link.name}
-                        >
-                          <div className="icon-wrapper">{icons[link.name as keyof typeof icons]}</div>
-                          <span className="link-name">{link.name}</span>
-                        </a>
-                    ))}
-                </div>
-            </div>
+              <div className="contact-layout">
+                  <a href="mailto:checkonpat@gmail.com" className="primary-cta liquid-hover">
+                      <span className="cta-text">Email Me</span>
+                      <div className="spinner-visual">
+                          {/* --- THE FIX IS APPLIED HERE --- */}
+                          <svg viewBox="-10 -10 120 120">
+                              <path d="M 0,50 a 50,50 0 1,1 0,1 z" id="circlePath"></path>
+                              <text>
+                                  <textPath href="#circlePath">
+                                      AVAILABLE FOR COLLABORATION • AVAILABLE FOR COLLABORATION •
+                                  </textPath>
+                              </text>
+                          </svg>
+                      </div>
+                  </a>
+                  
+                  <div className="social-links-container">
+                      {socialLinks.map((link) => (
+                          <a
+                            key={link.name}
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="social-link liquid-hover"
+                            style={{ gridArea: link.area }}
+                            aria-label={link.name}
+                          >
+                            <div className="icon-wrapper">{icons[link.name as keyof typeof icons]}</div>
+                            <span className="link-name">{link.name}</span>
+                          </a>
+                      ))}
+                  </div>
+              </div>
 
-            <div className="line-h bottom"></div>
-            <div className="footer-contacts">
-                 <a href="mailto:rictanservices@gmail.com" className="liquid-hover">rictanservices@gmail.com</a>
-                 <span className="footer-separator">•</span>
-                 <a href="tel:+2348066073909" className="liquid-hover">+234 806 607 3909</a>
-            </div>
-        </div>
-      </section>
+              <div className="line-h bottom"></div>
+              <div className="footer-contacts">
+                   <a href="mailto:rictanservices@gmail.com" className="liquid-hover">rictanservices@gmail.com</a>
+                   <span className="footer-separator">•</span>
+                   <a href="tel:+2348066073909" className="liquid-hover">+234 806 607 3909</a>
+              </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
       <style jsx>{`
         /* --- Base & Container Styles --- */
         .contact-section { min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; padding: 4rem 1.5rem; font-family: inherit; }

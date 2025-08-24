@@ -5,15 +5,15 @@ import { Menu } from 'lucide-react';
 
 export function Header() {
   const navLinks = [
-    { href: '#about', label: 'About' },
-    { href: '#expertise', label: 'Expertise' },
-    { href: '#contact', label: 'Contact' },
+    { href: '/about', label: 'About' },
+    { href: '/expertise', label: 'Expertise' },
+    { href: '/contact', label: 'Contact' },
   ];
 
   return (
     <header className="fixed top-0 left-0 w-full p-6 md:px-12 md:py-6 flex justify-between items-center z-10 bg-gradient-to-b from-[var(--bg-color)] from-50% to-transparent">
         <div className="font-bold text-lg">
-            <Link href="#home">Patrick Abiola</Link>
+            <Link href="/">Patrick Abiola</Link>
         </div>
         <nav className="hidden md:flex items-center gap-8">
             {navLinks.map(link => (

@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { DetailedAboutSection } from '@/components/sections/detailed-about-section';
 
 // Using a separate component for the SVG icons keeps the main component cleaner
 const Icon = ({ name }: { name: string }) => {
@@ -109,12 +110,13 @@ export default function AboutPage() {
 
           </div>
         </section>
+        <DetailedAboutSection />
       </main>
       <Footer />
       <style jsx>{`
         /* Common styles from your original code are kept for consistency */
         .about-section {
-          padding: 120px 0;
+          padding: 120px 0 60px; /* Adjusted padding */
           --active-color: var(--accent-color);
           --card-bg-color: transparent; /* Assuming a dark theme */
         }

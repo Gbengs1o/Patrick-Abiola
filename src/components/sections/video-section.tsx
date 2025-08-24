@@ -34,18 +34,26 @@ export function VideoSection() {
 
         .video-background {
           position: absolute;
-          top: 0;
+          top: -15vh; /* Adjust to control the parallax start position */
           left: 0;
           width: 100%;
-          height: 100%;
+          height: 100vh; /* Make it taller than the section to allow for movement */
           z-index: 1;
+          
+          /* The Key to Parallax: Fixed attachment */
+          background-attachment: fixed;
         }
 
         .video-iframe {
-          width: 100%;
-          height: 100%;
+          position: fixed; /* Make iframe fixed to viewport */
+          top: 50%;
+          left: 50%;
+          width: 100vw;
+          height: 100vh;
+          transform: translate(-50%, -50%);
           object-fit: cover;
-          pointer-events: none; /* Allows clicks to pass through if needed */
+          pointer-events: none;
+          z-index: -1;
         }
         
         .video-overlay {
@@ -75,6 +83,21 @@ export function VideoSection() {
           margin: 1rem auto 0;
           opacity: 0.9;
           text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+        }
+
+        /* The parallax magic happens here */
+        @media (min-width: 769px) {
+            .video-section {
+                background: transparent; /* The section itself is transparent */
+            }
+            .video-background iframe {
+                 position: fixed;
+                 top: 0;
+                 left: 0;
+                 width: 100%;
+                 height: 100%;
+                 z-index: -1;
+            }
         }
       `}</style>
     </>

@@ -7,7 +7,7 @@
     --bg-color: #102542;
     --text-color: #F87060;
     --accent-color: #F87060;
-    --secondary-accent-color: #00C49A;
+    --secondary-accent-color: #F87060;
     --card-bg-color: #1b3a69;
     --border-color: rgba(248, 112, 96, 0.2);
     --dot-color: rgba(255, 255, 255, 0.15);
@@ -22,13 +22,13 @@
     --secondary-foreground: 0 0% 98%;
     --muted: 216 62% 25%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 165 100% 38%; /* maps to --secondary-accent-color */
+    --accent: 6 92% 67%; /* maps to --secondary-accent-color */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 216 62% 25%;
     --input: 216 62% 25%;
-    --ring: 165 100% 42%;
+    --ring: 6 92% 71%;
     --card: 216 62% 20%;
     --card-foreground: 0 0% 98%;
     --radius: 0.5rem;
@@ -169,7 +169,7 @@ h2, h3 {
 .timeline-progress {
   width: 100%;
   height: 0;
-  background-color: var(--secondary-accent-color);
+  background-color: var(--accent-color);
   position: relative;
 }
 .timeline-dot {
@@ -178,7 +178,7 @@ h2, h3 {
   left: 50%;
   width: 12px;
   height: 12px;
-  background-color: var(--secondary-accent-color);
+  background-color: var(--accent-color);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: top 0.1s linear;
@@ -241,13 +241,6 @@ h2, h3 {
   border: 1px solid var(--border-color);
 }
 
-.project-content[data-project="hr"] .role-tags span,
-.project-content[data-project="career"] .role-tags span {
-  color: var(--secondary-accent-color);
-  border-color: rgba(0, 196, 154, 0.3);
-  background-color: #15325c;
-}
-
 /* Contact Section */
 .contact-section {
   padding: 120px 0;
@@ -265,13 +258,13 @@ h2, h3 {
   opacity: 0.9;
 }
 .contact-links a {
-  color: var(--secondary-accent-color);
+  color: hsl(var(--primary));
   text-decoration: none;
   margin: 0 15px;
   font-size: 1.1em;
   transition: color 0.3s;
 }
 .contact-links a:hover {
-  color: hsl(var(--primary));
+  color: hsl(var(--foreground));
   text-decoration: underline;
 }

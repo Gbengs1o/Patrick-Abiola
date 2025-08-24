@@ -241,7 +241,8 @@ h2, h3 {
   border: 1px solid var(--border-color);
 }
 
-.project-content[data-project="hr"] .role-tags span {
+.project-content[data-project="hr"] .role-tags span,
+.project-content[data-project="career"] .role-tags span {
   color: var(--secondary-accent-color);
   border-color: rgba(0, 196, 154, 0.3);
   background-color: #15325c;

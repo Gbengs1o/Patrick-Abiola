@@ -1,144 +1,206 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Award, Briefcase, Mail, Mic, Phone, Users } from 'lucide-react';
+'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEffect, useRef } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 
 export default function Home() {
+  const portfolioContainerRef = useRef<HTMLDivElement>(null);
+  const timelineProgressRef = useRef<HTMLDivElement>(null);
+  const timelineDotRef = useRef<HTMLDivElement>(null);
+  const projectTitlesRef = useRef<Array<HTMLHeadingElement | null>>([]);
+  const projectContentsRef = useRef<Array<HTMLDivElement | null>>([]);
+  const triggersRef = useRef<Array<HTMLDivElement | null>>([]);
+
+  useEffect(() => {
+    projectTitlesRef.current = Array.from(document.querySelectorAll('.project-titles h2'));
+    projectContentsRef.current = Array.from(document.querySelectorAll('.project-content'));
+    triggersRef.current = Array.from(document.querySelectorAll('.scroll-triggers .trigger'));
+
+    const setActiveProject = (index: number) => {
+      projectTitlesRef.current.forEach(title => title?.classList.remove('active'));
+      projectContentsRef.current.forEach(content => content?.classList.remove('active'));
+
+      if (projectTitlesRef.current[index]) {
+        projectTitlesRef.current[index]?.classList.add('active');
+      }
+      if (projectContentsRef.current[index]) {
+        projectContentsRef.current[index]?.classList.add('active');
+      }
+    };
+
+    const handleScroll = () => {
+      const portfolioContainer = portfolioContainerRef.current;
+      if (!portfolioContainer) return;
+
+      let activeIndex = -1;
+      const viewportHeight = window.innerHeight;
+      triggersRef.current.forEach((trigger, index) => {
+        if (trigger) {
+          const triggerTop = trigger.getBoundingClientRect().top;
+          if (triggerTop <= viewportHeight / 2) {
+            activeIndex = index;
+          }
+        }
+      });
+
+      if (activeIndex > -1) {
+        setActiveProject(activeIndex);
+      } else {
+        setActiveProject(0);
+      }
+
+      const portfolioTop = portfolioContainer.offsetTop;
+      const portfolioHeight = portfolioContainer.offsetHeight;
+      const totalScrollableHeight = portfolioHeight - viewportHeight;
+      const currentScroll = window.scrollY - portfolioTop;
+      
+      const progress = Math.min(Math.max(currentScroll / totalScrollableHeight, 0), 1);
+      
+      if (window.scrollY < portfolioTop) {
+        if(timelineProgressRef.current) timelineProgressRef.current.style.height = '0%';
+        if(timelineDotRef.current) timelineDotRef.current.style.top = '0%';
+        return;
+      }
+      
+      if (timelineProgressRef.current) {
+        timelineProgressRef.current.style.height = `${progress * 100}%`;
+      }
+      if (timelineDotRef.current) {
+        timelineDotRef.current.style.top = `${progress * 100}%`;
+      }
+    };
+
+    setActiveProject(0);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <>
       <Header />
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section
-          id="home"
-          className="w-full h-[calc(100vh-3.5rem)] flex flex-col justify-center items-center text-center px-4"
-        >
-          <Avatar className="w-32 h-32 md:w-40 md:h-40 mb-6 border-4 border-primary">
-            <AvatarImage src="https://placehold.co/400x400.png" alt="Patrick Abiola" data-ai-hint="professional man" />
-            <AvatarFallback>PA</AvatarFallback>
-          </Avatar>
-          <h1 className="text-4xl md:text-6xl font-bold text-primary mb-2">
-            Patrick Abiola
-          </h1>
-          <p className="text-lg md:text-2xl text-foreground/80 mb-8 max-w-3xl">
-            Product Manager, Career Services Expert, HR Professional, and Public Speaker
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link href="#expertise">View My Work</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="#contact">Contact Me</Link>
-            </Button>
+      <main>
+        {/* ========= HERO SECTION ========= */}
+        <section id="home" className="hero">
+          <h1>Patrick Abiola</h1>
+          <p className="subtitle">Product Manager | Career Coach | HR Consultant | Public Speaker</p>
+          <div className="scroll-prompt">[ Scroll down ]</div>
+        </section>
+
+        {/* ========= ABOUT SECTION ========= */}
+        <section id="about" className="about-section">
+          <div className="container">
+            <h2>Professional Profile</h2>
+            <p>
+              A dynamic and multi-talented professional bridging the gap between product innovation, human resources, and career development. With a proven track record in designing user-centric tech solutions, coaching professionals to land their dream roles, and captivating audiences from the stage. Known for bringing energy, empathy, and a results-driven approach to every project, whether it's building a product roadmap, crafting a standout CV, or delivering an inspiring keynote.
+            </p>
           </div>
         </section>
 
-        {/* About Me Section */}
-        <section id="about" className="w-full py-16 md:py-24 bg-card/50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">
-              About Me
-            </h2>
-            <div className="max-w-4xl mx-auto grid md:grid-cols-1 gap-8 text-lg text-foreground/80 leading-relaxed text-center">
-              <p>
-                I am a multifaceted professional with a deep passion for building products that solve real-world problems and helping individuals achieve their career aspirations. My journey has taken me through the dynamic fields of Product Management, Human Resources, and Career Services, equipping me with a unique blend of strategic thinking, user empathy, and people management skills.
-              </p>
-               <p>
-                Whether I'm defining a product roadmap, coaching a client through a career transition, or speaking to an audience, my goal is always to create value and drive positive change.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Expertise Section */}
-        <section id="expertise" className="w-full py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-primary">
-              My Expertise
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {expertiseData.map((item) => (
-                <Card key={item.title} className="flex flex-col bg-card/50 hover:border-primary/50 transition-all duration-300">
-                  <CardHeader className="flex-row items-center gap-4">
-                    <div className="bg-primary/20 p-3 rounded-full">
-                      {item.icon}
-                    </div>
-                    <CardTitle className="text-primary">{item.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <p className="text-foreground/80">{item.description}</p>
-                  </CardContent>
-                  <div className="p-6 pt-0">
-                    <div className="flex flex-wrap gap-2">
-                      {item.skills.map((skill) => (
-                        <Badge key={skill} variant="secondary">
-                          {skill}
-                        </Badge>
-                      ))}
+        {/* ========= EXPERTISE SECTION ========= */}
+        <section id="expertise" ref={portfolioContainerRef}>
+          <div className="portfolio-container">
+            <div className="sticky-container">
+              <div className="project-titles">
+                <h2 data-project="pm">Product Management</h2>
+                <h2 data-project="career">Career Development</h2>
+                <h2 data-project="hr">HR & People Operations</h2>
+                <h2 data-project="speaking">Public Speaking</h2>
+              </div>
+              <div className="project-details">
+                <div className="timeline">
+                  <div className="timeline-progress" ref={timelineProgressRef}></div>
+                  <div className="timeline-dot" ref={timelineDotRef}></div>
+                </div>
+                <div className="project-content-wrapper">
+                  {/* 1. Product Management Content */}
+                  <div className="project-content" data-project="pm">
+                    <h3>Building Intuitive Solutions</h3>
+                    <p>Focused on building tech solutions that solve real-world problems for HR and remote teams.</p>
+                    <ul>
+                      <li><strong>Rictan App (Ongoing):</strong> A solution connecting HR teams with a global remote workforce. Authored PRDs, developed the roadmap, and led user research.</li>
+                      <li><strong>Capstone Project:</strong> Designed and delivered a complete end-to-end product solution, demonstrating practical skills in market research and execution.</li>
+                    </ul>
+                    <div className="project-role-container">
+                      <div className="role-title">Skills & Tools</div>
+                      <div className="role-tags"><span>Roadmapping</span><span>PRD Writing</span><span>User Research</span><span>Figma</span><span>Miro</span><span>Notion</span></div>
                     </div>
                   </div>
-                </Card>
-              ))}
+
+                  {/* 2. Career Development Content */}
+                  <div className="project-content" data-project="career">
+                    <h3>Empowering Professionals</h3>
+                    <p>Dedicated to helping professionals articulate their value and advance their careers, with a track record of success.</p>
+                    <ul>
+                      <li>Empowered over <strong>50 clients</strong> across diverse industries.</li>
+                      <li>Clients have secured interviews at startups, multinational corporations, and public agencies.</li>
+                      <li><strong>Services:</strong> CV Writing (₦30k), CV Revamp (₦20k), LinkedIn Optimization (₦20k).</li>
+                    </ul>
+                    <div className="project-role-container">
+                      <div className="role-title">Services</div>
+                      <div className="role-tags"><span>CV Writing</span><span>CV Revamp</span><span>LinkedIn Optimization</span><span>Career Coaching</span></div>
+                    </div>
+                  </div>
+
+                  {/* 3. HR & People Operations Content */}
+                  <div className="project-content" data-project="hr">
+                    <h3>Building Thriving Teams</h3>
+                    <p>Leveraging a strong foundation in HR to build efficient and engaged teams, with a specialty in remote work culture.</p>
+                    <ul>
+                      <li>End-to-end recruitment and onboarding for remote teams.</li>
+                      <li>Employee engagement strategies to boost morale and retention.</li>
+                      <li>Consulting for small businesses on building strong remote cultures.</li>
+                    </ul>
+                    <div className="project-role-container">
+                      <div className="role-title">Core Competencies</div>
+                      <div className="role-tags"><span>Recruitment</span><span>Onboarding</span><span>Employee Engagement</span><span>Remote Culture</span><span>HR-Tech</span></div>
+                    </div>
+                  </div>
+
+                  {/* 4. Public Speaking Content */}
+                  <div className="project-content" data-project="speaking">
+                    <h3>Inspiring Action</h3>
+                    <p>An engaging speaker and trainer passionate about empowering the next generation of leaders and professionals. Founder of the Abiola Patrick Public Speaking Competition.</p>
+                    <ul>
+                      <li>Available for physical and virtual keynotes, workshops, and panel discussions.</li>
+                    </ul>
+                    <div className="project-role-container">
+                      <div className="role-title">Key Topics</div>
+                      <div className="role-tags"><span>Career Growth</span><span>Product Management</span><span>Leadership</span><span>Youth Empowerment</span><span>Communication</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="scroll-triggers">
+              <div className="trigger" data-project="pm"></div>
+              <div className="trigger" data-project="career"></div>
+              <div className="trigger" data-project="hr"></div>
+              <div className="trigger" data-project="speaking"></div>
             </div>
           </div>
         </section>
 
-        {/* Contact Information Section */}
-        <section id="contact" className="w-full py-16 md:py-24 bg-card/50">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-              Get In Touch
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team.
+        {/* ========= CONTACT SECTION ========= */}
+        <section id="contact" className="contact-section">
+          <div className="container">
+            <h2>Let's Connect</h2>
+            <p>
+              I'm always open to discussing new projects, speaking opportunities, or collaborations. Let's build something great together.
             </p>
-            <div className="flex flex-col md:flex-row justify-center items-center gap-8">
-               <a href="mailto:patrick.abiola@example.com" className="flex items-center gap-3 text-lg hover:text-primary transition-colors group">
-                  <Mail className="w-6 h-6 text-primary" />
-                  <span className="group-hover:underline">patrick.abiola@example.com</span>
-               </a>
-               <a href="https://www.linkedin.com/in/patrickabiola" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-lg hover:text-primary transition-colors group">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                  <span className="group-hover:underline">LinkedIn Profile</span>
-               </a>
+            <div className="contact-links">
+              <a href="mailto:checkonpat@gmail.com">checkonpat@gmail.com</a>
+              <a href="tel:+2348066073909">+234 806 607 3909</a>
+              <a href="https://www.linkedin.com/in/patrick-abiola-061020176" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
           </div>
         </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
-
-const expertiseData = [
-  {
-    title: 'Product Management',
-    icon: <Briefcase className="w-6 h-6 text-primary" />,
-    description: "I specialize in the entire product lifecycle, from ideation and user research to launch and iteration. My focus is on building user-centric products that align with business goals.",
-    skills: ['Roadmap Planning', 'Agile Methodologies', 'User Research', 'Data Analysis', 'Jira', 'Figma'],
-  },
-  {
-    title: 'Career Services',
-    icon: <Award className="w-6 h-6 text-primary" />,
-    description: "As a career coach, I empower professionals to navigate their career paths successfully. I provide resume building, interview preparation, and strategic career planning services.",
-    skills: ['Resume Writing', 'Interview Coaching', 'Career Strategy', 'LinkedIn Optimization', 'Negotiation'],
-  },
-  {
-    title: 'Human Resources',
-    icon: <Users className="w-6 h-6 text-primary" />,
-    description: "With a background in HR, I have a strong understanding of talent acquisition, employee relations, and performance management. I focus on creating positive and productive work environments.",
-    skills: ['Talent Acquisition', 'Onboarding', 'Employee Relations', 'Performance Management', 'HRIS'],
-  },
-  {
-    title: 'Public Speaking',
-    icon: <Mic className="w-6 h-6 text-primary" />,
-    description: "I am an experienced public speaker, adept at engaging audiences on topics related to product management, career development, and leadership. I craft compelling narratives to inspire and educate.",
-    skills: ['Keynote Speaking', 'Workshop Facilitation', 'Storytelling', 'Panel Moderation', 'Presentation Design'],
-  },
-];

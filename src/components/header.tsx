@@ -1,42 +1,32 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
 
 export function Header() {
   const navLinks = [
     { href: '#about', label: 'About' },
     { href: '#expertise', label: 'Expertise' },
+    { href: '#contact', label: 'Contact' },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
-        <div className="mr-4 flex items-center">
-          <Link href="#home" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold">
-              Patrick Abiola
-            </span>
-          </Link>
+    <header className="fixed top-0 left-0 w-full p-6 md:px-12 md:py-6 flex justify-between items-center z-10 bg-gradient-to-b from-[var(--bg-color)] from-50% to-transparent">
+        <div className="font-bold text-lg">
+            <Link href="#home">Patrick Abiola</Link>
         </div>
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+        <nav className="hidden md:flex items-center gap-8">
             {navLinks.map(link => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
+                className="text-sm opacity-80 transition-opacity hover:opacity-100"
               >
                 {link.label}
               </Link>
             ))}
         </nav>
-        <div className="flex flex-1 items-center justify-end space-x-2">
-          <nav className="hidden md:flex items-center">
-             <Button asChild>
-                <Link href="#contact">Contact Me</Link>
-             </Button>
-          </nav>
-          <div className="md:hidden">
+        <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -44,30 +34,24 @@ export function Header() {
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <div className="flex flex-col h-full">
-                    <div className="flex-1 mt-8">
-                    <nav className="flex flex-col gap-4">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background">
+                <div className="flex flex-col h-full pt-12">
+                    <nav className="flex flex-col gap-6">
                         {navLinks.map(link => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className="text-lg font-medium transition-colors hover:text-foreground/80 text-foreground/60"
-                        >
-                            {link.label}
-                        </Link>
+                        <SheetClose asChild key={link.href}>
+                            <Link
+                                href={link.href}
+                                className="text-lg font-medium"
+                            >
+                                {link.label}
+                            </Link>
+                        </SheetClose>
                         ))}
                     </nav>
-                    </div>
-                    <Button asChild className="w-full">
-                        <Link href="#contact">Contact Me</Link>
-                    </Button>
                 </div>
               </SheetContent>
             </Sheet>
-          </div>
         </div>
-      </div>
     </header>
   );
 }

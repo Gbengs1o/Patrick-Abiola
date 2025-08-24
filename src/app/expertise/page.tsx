@@ -127,6 +127,60 @@ export default function ExpertisePage() {
     <>
       <Header />
       <main>
+        <section className="expertise-hero">
+            <div className="hero-content">
+                <h1 className="liquid-hover">Core Competencies</h1>
+                <p className="liquid-hover">A multi-disciplinary skill set for building products, careers, and teams.</p>
+                <div className="animated-svg-container">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <circle cx="100" cy="100" r="30" className="core-circle" filter="url(#glow)" />
+                        
+                        <g className="node-group" style={{ '--i': 1 } as React.CSSProperties}>
+                            <line x1="100" y1="100" x2="160" y2="100" className="connector-line" />
+                            <circle cx="170" cy="100" r="12" className="node-circle" />
+                        </g>
+                        <g className="node-group" style={{ '--i': 2 } as React.CSSProperties}>
+                            <line x1="100" y1="100" x2="145" y2="145" className="connector-line" />
+                            <circle cx="155" cy="155" r="10" className="node-circle" />
+                        </g>
+                        <g className="node-group" style={{ '--i': 3 } as React.CSSProperties}>
+                            <line x1="100" y1="100" x2="100" y2="160" className="connector-line" />
+                            <circle cx="100" cy="170" r="12" className="node-circle" />
+                        </g>
+                        <g className="node-group" style={{ '--i': 4 } as React.CSSProperties}>
+                            <line x1="100" y1="100" x2="55" y2="145" className="connector-line" />
+                            <circle cx="45" cy="155" r="10" className="node-circle" />
+                        </g>
+                        <g className="node-group" style={{ '--i': 5 } as React.CSSProperties}>
+                            <line x1="100" y1="100" x2="40" y2="100" className="connector-line" />
+                            <circle cx="30" cy="100" r="12" className="node-circle" />
+                        </g>
+                        <g className="node-group" style={{ '--i': 6 } as React.CSSProperties}>
+                            <line x1="100" y1="100" x2="55" y2="55" className="connector-line" />
+                            <circle cx="45" cy="45" r="10" className="node-circle" />
+                        </g>
+                         <g className="node-group" style={{ '--i': 7 } as React.CSSProperties}>
+                            <line x1="100" y1="100" x2="100" y2="40" className="connector-line" />
+                            <circle cx="100" cy="30" r="12" className="node-circle" />
+                        </g>
+                        <g className="node-group" style={{ '--i': 8 } as React.CSSProperties}>
+                            <line x1="100" y1="100" x2="145" y2="55" className="connector-line" />
+                            <circle cx="155" cy="45" r="10" className="node-circle" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
         <section id="expertise" ref={portfolioContainerRef}>
           
           {/* ========================================================== */}
@@ -206,6 +260,60 @@ export default function ExpertisePage() {
       {/* =========== STYLES (DESKTOP + NEW MOBILE) ================ */}
       {/* ========================================================== */}
       <style jsx>{`
+        /* --- NEW HERO SECTION STYLES --- */
+        .expertise-hero {
+            padding: 120px 20px 60px;
+            text-align: center;
+        }
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+        .hero-content p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto 2rem auto;
+        }
+        .animated-svg-container {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .core-circle, .node-circle {
+            fill: var(--secondary-accent-color);
+            transition: all 0.3s ease;
+        }
+        .connector-line {
+            stroke: var(--border-color);
+            stroke-width: 2;
+        }
+        .core-circle {
+            animation: pulse 4s infinite ease-in-out;
+        }
+        .node-group {
+            transform-origin: 100px 100px;
+            animation: rotate-group 20s linear infinite;
+            animation-delay: calc(var(--i) * -2.5s);
+        }
+        .node-circle {
+            animation: pulse-node 3s infinite ease-in-out;
+            animation-delay: calc(var(--i) * 0.2s);
+        }
+        @keyframes pulse {
+            50% { r: 35px; opacity: 0.7; }
+        }
+        @keyframes pulse-node {
+            50% { opacity: 0.6; }
+        }
+        @keyframes rotate-group {
+            to { transform: rotate(360deg); }
+        }
+
+
         /* --- DESKTOP STYLES (UNCHANGED) --- */
         .expertise-desktop { display: block; }
         .expertise-mobile { display: none; }

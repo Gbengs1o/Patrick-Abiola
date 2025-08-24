@@ -15,7 +15,7 @@ export function HeroSection() {
           <div className="hero-image-container">
             <div className="hero-bg-shape"></div>
             <Image
-              src="https://seagreen-cobra-133672.hostingersite.com/wp-content/uploads/2025/08/guypic4nobg.jpg"
+              src="https://seagreen-cobra-133672.hostingersite.com/wp-content/uploads/2025/08/Adobe-Express-file-1.png"
               alt="A portrait of Patrick Abiola"
               width={450}
               height={550}

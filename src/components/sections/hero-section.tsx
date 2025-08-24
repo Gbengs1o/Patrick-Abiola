@@ -64,6 +64,7 @@ export function HeroSection() {
           display: flex;
           justify-content: center;
           align-items: center;
+          height: 100%;
         }
         .hero-image {
           position: relative;
@@ -71,6 +72,8 @@ export function HeroSection() {
           width: 100%;
           max-width: 450px;
           height: auto;
+          object-fit: contain;
+          object-position: bottom;
         }
         .hero-bg-shape {
           position: absolute;
@@ -79,10 +82,10 @@ export function HeroSection() {
           transform: translate(-50%, -50%);
           border-radius: 50%;
           z-index: 1;
-          background: linear-gradient(45deg, var(--card-bg-color), var(--bg-color));
-          width: 90%;
-          height: 90%;
-          filter: blur(20px);
+          background: radial-gradient(circle, var(--card-bg-color) 40%, transparent 70%);
+          width: 100%;
+          height: 100%;
+          filter: blur(10px);
         }
         .hero .scroll-prompt {
           margin-top: 40px;

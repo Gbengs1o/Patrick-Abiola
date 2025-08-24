@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { DetailedAboutSection } from '@/components/sections/detailed-about-section';
+import { ExtendedAboutSection } from '@/components/sections/extended-about-section';
 
 // Using a separate component for the SVG icons keeps the main component cleaner
 const Icon = ({ name }: { name: string }) => {
@@ -111,6 +112,7 @@ export default function AboutPage() {
           </div>
         </section>
         <DetailedAboutSection />
+        <ExtendedAboutSection />
       </main>
       <Footer />
       <style jsx>{`

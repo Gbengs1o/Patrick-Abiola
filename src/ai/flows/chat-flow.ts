@@ -1,16 +1,16 @@
+
 'use server';
 /**
  * @fileOverview A conversational AI flow for the portfolio chatbot.
  *
  * - chat - A function that handles the chat interaction.
  * - ChatInput - The input type for the chat function.
- * - ChatOutput - The return type for the chat function.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const ChatInputSchema = z.object({
+const ChatInputSchema = z.object({
   history: z.array(z.object({
     role: z.enum(['user', 'model']),
     content: z.array(z.object({

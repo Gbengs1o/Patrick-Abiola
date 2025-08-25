@@ -17,8 +17,15 @@ export function DetailedAboutSection() {
     'https://seagreen-cobra-133672.hostingersite.com/wp-content/uploads/2025/08/guypic1.jpeg',
   ];
 
-  // Using the original slice(0, 4) for the scroller to match your initial intent
   const scrollerPhotos = personalPhotos.slice(0, 4);
+
+  // Text for the hover overlays
+  const scrollerText = [
+    "Tech Entrepreneur",
+    "Product Strategist",
+    "Career Coach",
+    "Innovator"
+  ];
 
   const posters = [
     'https://seagreen-cobra-133672.hostingersite.com/wp-content/uploads/2025/08/guyposter1.png',
@@ -80,28 +87,33 @@ export function DetailedAboutSection() {
               </div>
             </div>
 
-            {/* ========= NEW ROLLING IMAGE SCROLLER (REPLACES FIRST GRID) ========= */}
+            {/* ROLLING IMAGE SCROLLER WITH HOVER EFFECT */}
             <div
               className={`scroller-container ${isVisible('featured-photos') ? 'visible' : ''}`}
               data-animate-id="featured-photos"
             >
               <div className="scroller-wrapper">
-                {/* Render the list of photos TWICE for a seamless loop */}
                 {scrollerPhotos.map((src, index) => (
                   <div key={`first-${index}`} className="scroller-item">
                     <img src={src} alt={`Patrick's journey moment ${index + 1}`} loading="lazy" />
+                    <div className="scroller-overlay">
+                      <p>{scrollerText[index]}</p>
+                    </div>
                   </div>
                 ))}
                 {scrollerPhotos.map((src, index) => (
                   <div key={`second-${index}`} className="scroller-item" aria-hidden="true">
                     <img src={src} alt="" loading="lazy" />
+                    <div className="scroller-overlay">
+                      <p>{scrollerText[index]}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Chapter 2: Product Management */}
+          {/* Chapter 2: Product Management (UNCHANGED) */}
           <div className="story-chapter">
             <div 
               className={`story-content reverse ${isVisible('product') ? 'visible' : ''}`}
@@ -118,7 +130,6 @@ export function DetailedAboutSection() {
               </div>
             </div>
 
-            {/* Product Journey Photos - RESTORED TO ORIGINAL */}
             <div 
               className={`product-showcase ${isVisible('product-showcase') ? 'visible' : ''}`}
               data-animate-id="product-showcase"
@@ -133,7 +144,7 @@ export function DetailedAboutSection() {
             </div>
           </div>
 
-          {/* Chapter 3: Career Consultancy */}
+          {/* Chapter 3: Career Consultancy (UNCHANGED) */}
           <div className="story-chapter">
             <div 
               className={`story-content ${isVisible('career') ? 'visible' : ''}`}
@@ -150,7 +161,6 @@ export function DetailedAboutSection() {
               </div>
             </div>
 
-            {/* Remaining Personal Photos - RESTORED TO ORIGINAL */}
             <div 
               className={`career-moments ${isVisible('career-moments') ? 'visible' : ''}`}
               data-animate-id="career-moments"
@@ -219,97 +229,26 @@ export function DetailedAboutSection() {
       <style jsx>{`
         /* Keyframes for the scrolling animation */
         @keyframes scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
       
-        .detailed-about-section {
-          padding: 60px 0 120px;
-          overflow: hidden;
-        }
-        
-        .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 20px;
-        }
+        .detailed-about-section { padding: 60px 0 120px; overflow: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .story-chapter { margin-bottom: 120px; position: relative; }
+        .story-chapter.final { margin-bottom: 60px; }
+        .chapter-header { margin-bottom: 60px; cursor: pointer; }
+        .chapter-header.centered { text-align: center; }
+        .chapter-number { display: inline-block; font-size: 1rem; font-weight: 600; opacity: 0.6; letter-spacing: 0.2em; margin-bottom: 10px; }
+        .chapter-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; margin-bottom: 15px; line-height: 1.2; }
+        .chapter-subtitle { font-size: clamp(1rem, 2.5vw, 1.2rem); opacity: 0.7; font-style: italic; margin-top: 10px; }
+        .story-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 80px; opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .story-content.reverse { direction: rtl; }
+        .story-content.reverse > * { direction: ltr; }
+        .story-content.visible { opacity: 1; transform: translateY(0); }
+        .text-content p { font-size: clamp(1em, 2vw, 1.1em); line-height: 1.8; opacity: 0.9; }
 
-        .story-chapter {
-          margin-bottom: 120px;
-          position: relative;
-        }
-
-        .story-chapter.final {
-          margin-bottom: 60px;
-        }
-
-        .chapter-header {
-          margin-bottom: 60px;
-          cursor: pointer;
-        }
-
-        .chapter-header.centered {
-          text-align: center;
-        }
-
-        .chapter-number {
-          display: inline-block;
-          font-size: 1rem;
-          font-weight: 600;
-          opacity: 0.6;
-          letter-spacing: 0.2em;
-          margin-bottom: 10px;
-        }
-
-        .chapter-title {
-          font-size: clamp(2rem, 5vw, 3rem);
-          font-weight: 600;
-          margin-bottom: 15px;
-          line-height: 1.2;
-        }
-
-        .chapter-subtitle {
-          font-size: clamp(1rem, 2.5vw, 1.2rem);
-          opacity: 0.7;
-          font-style: italic;
-          margin-top: 10px;
-        }
-
-        .story-content {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 80px;
-          align-items: center;
-          margin-bottom: 80px;
-          opacity: 0;
-          transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .story-content.reverse {
-          direction: rtl;
-        }
-
-        .story-content.reverse > * {
-          direction: ltr;
-        }
-
-        .story-content.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .text-content p {
-          font-size: clamp(1em, 2vw, 1.1em);
-          line-height: 1.8;
-          opacity: 0.9;
-        }
-
-        /* ========= NEW SCROLLER STYLES ========= */
+        /* SCROLLER STYLES */
         .scroller-container {
           max-width: 100%;
           overflow: hidden;
@@ -319,25 +258,11 @@ export function DetailedAboutSection() {
           transform: translateY(50px);
           transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
         }
-
-        .scroller-container.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-
-        .scroller-wrapper {
-          display: flex;
-          gap: 20px;
-          padding-block: 10px;
-          width: max-content;
-          animation: scroll 30s linear infinite; /* Adjusted speed for 4 items */
-        }
-
-        .scroller-container:hover .scroller-wrapper {
-          animation-play-state: paused;
-        }
-
+        .scroller-container.visible { opacity: 1; transform: translateY(0); }
+        .scroller-wrapper { display: flex; gap: 20px; padding-block: 10px; width: max-content; animation: scroll 30s linear infinite; }
+        .scroller-container:hover .scroller-wrapper { animation-play-state: paused; }
         .scroller-item {
+          position: relative; /* REQUIRED FOR OVERLAY */
           height: 300px;
           width: auto;
           flex-shrink: 0;
@@ -345,43 +270,35 @@ export function DetailedAboutSection() {
           overflow: hidden;
           box-shadow: 0 8px 24px rgba(0,0,0,0.1);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+          cursor: pointer;
         }
+        .scroller-item:hover { transform: scale(1.05); box-shadow: 0 12px 28px rgba(0,0,0,0.2); }
+        .scroller-item img { height: 100%; width: 100%; object-fit: cover; }
 
-        .scroller-item:hover {
-          transform: scale(1.05);
-          box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-        }
-        
-        .scroller-item img {
-          height: 100%;
-          width: 100%;
-          object-fit: cover;
-        }
-        /* ========= END OF NEW SCROLLER STYLES ========= */
-
-
-        /* Product Showcase - ORIGINAL STYLES */
-        .product-showcase {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 20px;
+        /* NEW OVERLAY STYLES */
+        .scroller-overlay {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background-color: rgba(0, 196, 154, 0.85); /* #00C49A with opacity */
+          display: flex;
+          align-items: center;
+          justify-content: center;
           opacity: 0;
-          transform: translateX(-50px);
-          transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+          transition: opacity 0.3s ease-in-out;
+        }
+        .scroller-item:hover .scroller-overlay { opacity: 1; }
+        .scroller-overlay p {
+          color: #102542;
+          font-size: 1.25rem;
+          font-weight: 600;
+          text-align: center;
+          padding: 10px;
         }
 
-        .product-showcase.visible {
-          opacity: 1;
-          transform: translateX(0);
-        }
-
-        .product-photo {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        /* ORIGINAL STYLES FOR THE REST OF THE COMPONENT... */
+        /* ALL ORIGINAL STYLES BELOW THIS LINE ARE UNCHANGED */
+        .product-showcase { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; opacity: 0; transform: translateX(-50px); transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s; }
+        .product-showcase.visible { opacity: 1; transform: translateX(0); }
+        .product-photo { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .product-showcase.visible .photo-delay-0 { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
         .product-showcase.visible .photo-delay-1 { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
         .product-showcase.visible .photo-delay-2 { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
@@ -414,7 +331,6 @@ export function DetailedAboutSection() {
           .product-showcase { transform: translateY(50px); }
           .product-showcase.visible { transform: translateY(0); }
         }
-
         @media (max-width: 768px) {
           .story-chapter { margin-bottom: 80px; }
           .scroller-item { height: 200px; }

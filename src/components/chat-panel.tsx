@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -5,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { MessageSquare, Send, X, Bot, User } from 'lucide-react';
-import { chat, ChatInput } from '@/ai/flows/chat-flow';
+import { continueConversation, ChatInput } from '@/ai/flows/chat-flow';
 import ReactMarkdown from 'react-markdown';
 
 type Message = {
@@ -42,19 +43,19 @@ export function ChatPanel() {
     if (!input.trim() || isLoading) return;
 
     const userMessage: Message = { role: 'user', content: input };
-    setMessages((prev) => [...prev, userMessage]);
+    const newMessages: Message[] = [...messages, userMessage];
+    setMessages(newMessages);
     setInput('');
     setIsLoading(true);
 
     try {
-        const chatHistory = messages.map(msg => ({
+        const chatHistory = newMessages.map(msg => ({
             role: msg.role,
-            content: [{text: msg.content}]
+            content: msg.content
         }))
 
-        const aiResponse = await chat({
+        const aiResponse = await continueConversation({
             history: chatHistory,
-            message: input,
         });
 
       const modelMessage: Message = { role: 'model', content: aiResponse };

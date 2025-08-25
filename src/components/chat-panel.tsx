@@ -110,13 +110,13 @@ export function ChatPanel() {
             {messages.map((message, index) => (
               <div key={index} className={`flex items-start gap-3 ${message.role === 'user' ? 'justify-end' : ''}`}>
                  {message.role === 'model' && (
-                    <div className="bg-primary rounded-full p-2 text-primary-foreground">
+                    <div className="bg-secondary rounded-full p-2 text-secondary-foreground">
                         <Bot size={20} />
                     </div>
                 )}
                 <div className={`rounded-lg p-3 max-w-sm ${
                     message.role === 'user'
-                      ? 'bg-primary text-primary-foreground'
+                      ? 'bg-[#00C49A] text-background'
                       : 'bg-secondary text-secondary-foreground'
                   }`}
                 >
@@ -125,7 +125,7 @@ export function ChatPanel() {
                   </ReactMarkdown>
                 </div>
                  {message.role === 'user' && (
-                     <div className="bg-secondary rounded-full p-2 text-secondary-foreground">
+                     <div className="bg-primary rounded-full p-2 text-primary-foreground">
                         <User size={20} />
                     </div>
                 )}
@@ -133,14 +133,14 @@ export function ChatPanel() {
             ))}
              {isLoading && (
                 <div className="flex items-start gap-3">
-                    <div className="bg-primary rounded-full p-2 text-primary-foreground">
+                    <div className="bg-secondary rounded-full p-2 text-secondary-foreground">
                         <Bot size={20} />
                     </div>
                     <div className="rounded-lg p-3 max-w-sm bg-secondary text-secondary-foreground">
                        <div className="flex items-center gap-2">
-                           <div className="w-2 h-2 rounded-full bg-primary animate-pulse delay-0"></div>
-                           <div className="w-2 h-2 rounded-full bg-primary animate-pulse delay-150"></div>
-                           <div className="w-2 h-2 rounded-full bg-primary animate-pulse delay-300"></div>
+                           <div className="w-2 h-2 rounded-full bg-[#00C49A] animate-pulse delay-0"></div>
+                           <div className="w-2 h-2 rounded-full bg-[#00C49A] animate-pulse delay-150"></div>
+                           <div className="w-2 h-2 rounded-full bg-[#00C49A] animate-pulse delay-300"></div>
                        </div>
                     </div>
                 </div>

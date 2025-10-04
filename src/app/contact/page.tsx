@@ -16,12 +16,12 @@ const icons = {
 
 export default function ContactPage() {
     const socialLinks = [
-        { name: 'YouTube', href: '...', area: '1 / 1' },
-        { name: 'TikTok', href: '...', area: '1 / 2' },
-        { name: 'Threads', href: '...', area: '1 / 3' },
-        { name: 'Facebook', href: '...', area: '3 / 1' },
-        { name: 'Instagram', href: '...', area: '3 / 2' },
-        { name: 'LinkedIn', href: '...', area: '3 / 3' },
+        { name: 'YouTube', href: 'https://www.youtube.com/@themrslim', area: '1 / 1' },
+        { name: 'TikTok', href: 'https://www.tiktok.com/@themisterslim', area: '1 / 2' },
+        { name: 'Threads', href: 'https://www.threads.com/@themisterslim', area: '1 / 3' },
+        { name: 'Facebook', href: 'https://web.facebook.com/abiola.patrickslim?_rdc=1&_rdr#', area: '3 / 1' },
+        { name: 'Instagram', href: 'https://www.instagram.com/themisterslim', area: '3 / 2' },
+        { name: 'LinkedIn', href: 'https://www.linkedin.com/in/patrick-abiola-061020176', area: '3 / 3' },
     ];
 
 
